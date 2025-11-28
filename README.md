@@ -5,7 +5,6 @@ A full-stack MERN application for creating and taking AI-powered quizzes. Built 
 ## Project Structure
 
 ```
-.
 ├── backend/
 │   ├── models/
 │   │   └── User.js
@@ -13,7 +12,7 @@ A full-stack MERN application for creating and taking AI-powered quizzes. Built 
 │   │   └── auth.js
 │   ├── server.js
 │   ├── package.json
-│   └── .env.example
+│   └── .env
 ├── frontend/
 │   ├── src/
 │   │   ├── api/
@@ -55,7 +54,6 @@ A full-stack MERN application for creating and taking AI-powered quizzes. Built 
 
 - Node.js (v16 or higher)
 - MongoDB (local installation or MongoDB Atlas account)
-- npm or yarn
 
 ## Setup Instructions
 
@@ -73,7 +71,7 @@ npm install
 
 3. Create a `.env` file in the backend directory:
 ```bash
-cp .env.example .env
+cp .env
 ```
 
 4. Update the `.env` file with your configuration:
