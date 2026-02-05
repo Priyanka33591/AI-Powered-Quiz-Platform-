@@ -314,7 +314,7 @@ const Upload = () => {
                 </button>
               </div>
             </div>
-            <p className="input-hint">Select between 5 and 500 questions per quiz</p>
+            <p className="input-hint">Select between 5 and 50 questions per quiz</p>
           </div>
 
           {/* Generate Button */}
