@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import Navbar from '../components/Navbar';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { getQuizHistoryAndStats } from '../api/quiz';
 import '../styles/Profile.css';
 
 const Profile = () => {
@@ -22,6 +24,34 @@ const Profile = () => {
   });
 
   const [showPasswordSection, setShowPasswordSection] = useState(false);
+  const [stats, setStats] = useState({
+    totalQuizzes: 0,
+    totalQuestions: 0,
+    totalCorrect: 0,
+    averageScore: 0,
+    bestScore: 0,
+  });
+  const [history, setHistory] = useState([]);
+  const [statsLoading, setStatsLoading] = useState(true);
+  const [statsError, setStatsError] = useState('');
+
+  useEffect(() => {
+    const loadStats = async () => {
+      if (!user) return;
+      setStatsLoading(true);
+      setStatsError('');
+      try {
+        const data = await getQuizHistoryAndStats();
+        setStats(data.stats);
+        setHistory(data.history || []);
+      } catch (err) {
+        setStatsError(err.response?.data?.error || 'Failed to load stats');
+      } finally {
+        setStatsLoading(false);
+      }
+    };
+    loadStats();
+  }, [user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -116,12 +146,17 @@ const Profile = () => {
       .slice(0, 2);
   };
 
-  const stats = [
-    { label: 'Total Quizzes', value: '0', icon: '📝', color: '#667eea' },
-    { label: 'Completed', value: '0', icon: '✅', color: '#48bb78' },
-    { label: 'Average Score', value: '0%', icon: '📊', color: '#ed8936' },
-    { label: 'Best Score', value: '0%', icon: '🏆', color: '#f56565' },
+  const statsDisplay = [
+    { label: 'Total Quizzes', value: String(stats.totalQuizzes), icon: '📝', color: '#667eea' },
+    { label: 'Completed', value: String(stats.totalQuizzes), icon: '✅', color: '#48bb78' },
+    { label: 'Average Score', value: `${stats.averageScore}%`, icon: '📊', color: '#ed8936' },
+    { label: 'Best Score', value: `${stats.bestScore}%`, icon: '🏆', color: '#f56565' },
   ];
+
+  const formatDate = (dateStr) => {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString(undefined, { dateStyle: 'medium' });
+  };
 
   return (
     <div className="profile-wrapper">
@@ -249,21 +284,63 @@ const Profile = () => {
               <span className="title-icon">📊</span>
               Your Statistics
             </h3>
-            <div className="stats-grid">
-              {stats.map((stat, index) => (
-                <div key={index} className="stat-item" style={{ '--stat-color': stat.color }}>
-                  <div className="stat-icon-wrapper">
-                    <div className="stat-icon" style={{ background: `linear-gradient(135deg, ${stat.color} 0%, ${stat.color}dd 100%)` }}>
-                      {stat.icon}
+            {statsLoading ? (
+              <div className="stats-loading">
+                <LoadingSpinner />
+                <span>Loading stats...</span>
+              </div>
+            ) : statsError ? (
+              <div className="stats-error">{statsError}</div>
+            ) : (
+              <div className="stats-grid">
+                {statsDisplay.map((stat, index) => (
+                  <div key={index} className="stat-item" style={{ '--stat-color': stat.color }}>
+                    <div className="stat-icon-wrapper">
+                      <div className="stat-icon" style={{ background: `linear-gradient(135deg, ${stat.color} 0%, ${stat.color}dd 100%)` }}>
+                        {stat.icon}
+                      </div>
+                    </div>
+                    <div className="stat-info">
+                      <div className="stat-value">{stat.value}</div>
+                      <div className="stat-label">{stat.label}</div>
                     </div>
                   </div>
-                  <div className="stat-info">
-                    <div className="stat-value">{stat.value}</div>
-                    <div className="stat-label">{stat.label}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Quiz History */}
+          <div className="history-card">
+            <h3 className="card-title">
+              <span className="title-icon">📜</span>
+              Quiz History
+            </h3>
+            {statsLoading ? (
+              <div className="history-loading">
+                <LoadingSpinner />
+                <span>Loading history...</span>
+              </div>
+            ) : statsError ? (
+              <div className="history-error">{statsError}</div>
+            ) : history.length === 0 ? (
+              <p className="history-empty">No quiz attempts yet. Take a quiz from the dashboard to see your history here.</p>
+            ) : (
+              <ul className="history-list">
+                {history.map((item) => (
+                  <li key={item._id} className="history-item">
+                    <div className="history-item-main">
+                      <span className="history-title">{item.quizTitle}</span>
+                      <span className="history-score">{item.score}%</span>
+                    </div>
+                    <div className="history-item-meta">
+                      {item.correctCount}/{item.totalQuestions} correct · {formatDate(item.createdAt)}
+                    </div>
+                    <Link to={{ pathname: '/results', search: `?resultId=${item._id}` }} className="history-link">View details</Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           {/* Change Password Section */}
@@ -342,7 +419,7 @@ const Profile = () => {
             </div>
           )}
 
-          {/* Account Settings Card */}
+          {/* Account Settings Card
           <div className="settings-card">
             <h3 className="card-title">
               <span className="title-icon">⚙️</span>
@@ -380,7 +457,7 @@ const Profile = () => {
                 </label>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

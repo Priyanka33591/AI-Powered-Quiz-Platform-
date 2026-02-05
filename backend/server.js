@@ -10,7 +10,17 @@ import quizRoutes from './routes/quiz.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config();
+// Load environment variables from .env file
+dotenv.config({ path: path.join(__dirname, '.env') });
+
+// Check for required environment variables (support both GEMINI_API_KEY and GOOGLE_API_KEY)
+// Check OpenRouter API key
+if (!process.env.OPENROUTER_API_KEY) {
+  console.warn("⚠️  OPENROUTER_API_KEY missing in .env");
+} else {
+  console.log("✅ OpenRouter API key loaded");
+}
+
 
 const app = express();
 
@@ -51,4 +61,3 @@ mongoose
   });
 
 export default app;
-

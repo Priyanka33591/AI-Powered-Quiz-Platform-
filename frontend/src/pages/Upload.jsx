@@ -86,8 +86,8 @@ const Upload = () => {
     if (!isNaN(value)) {
       if (value < 5) {
         setNumQuestions(5);
-      } else if (value > 50) {
-        setNumQuestions(50);
+      } else if (value > 500) {
+        setNumQuestions(500);
       } else {
         setNumQuestions(value);
       }
@@ -114,8 +114,8 @@ const Upload = () => {
       return;
     }
 
-    if (numQuestions < 5 || numQuestions > 50) {
-      setError('Number of questions must be between 5 and 50');
+    if (numQuestions < 5 || numQuestions > 500) {
+      setError('Number of questions must be between 5 and 500');
       setLoading(false);
       return;
     }
@@ -136,16 +136,16 @@ const Upload = () => {
       // Upload to backend
       const response = await uploadQuiz(formData);
       
-      setSuccess('Quiz generated successfully!');
+      setSuccess('Quiz generated successfully! Redirecting...');
       
-      // Redirect to quiz page or dashboard after a short delay
+      // Redirect to quiz page after a short delay
       setTimeout(() => {
         if (response.quizId) {
           navigate(`/quiz/${response.quizId}`);
         } else {
           navigate('/dashboard');
         }
-      }, 2000);
+      }, 1500);
 
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to generate quiz. Please try again.');
@@ -290,7 +290,7 @@ const Upload = () => {
                 value={numQuestions}
                 onChange={handleNumQuestionsChange}
                 min="5"
-                max="50"
+                max="500"
                 className="form-input num-questions-input"
                 disabled={loading}
                 required
@@ -306,15 +306,15 @@ const Upload = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setNumQuestions(prev => Math.min(50, prev + 1))}
+                  onClick={() => setNumQuestions(prev => Math.min(500, prev + 1))}
                   className="num-btn"
-                  disabled={loading || numQuestions >= 50}
+                  disabled={loading || numQuestions >= 500}
                 >
                   +
                 </button>
               </div>
             </div>
-            <p className="input-hint">Select between 5 and 50 questions per quiz</p>
+            <p className="input-hint">Select between 5 and 500 questions per quiz</p>
           </div>
 
           {/* Generate Button */}

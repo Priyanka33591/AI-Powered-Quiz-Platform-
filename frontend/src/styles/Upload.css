@@ -1,6 +1,6 @@
 .upload-wrapper {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: var(--bg-page-gradient);
   position: relative;
   overflow: hidden;
 }
@@ -65,7 +65,7 @@
 .upload-title {
   font-size: 42px;
   font-weight: 700;
-  color: #2d3748;
+  color: var(--text-primary);
   margin-bottom: 12px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
@@ -75,15 +75,15 @@
 
 .upload-subtitle {
   font-size: 18px;
-  color: #718096;
+  color: var(--text-muted);
   font-weight: 500;
 }
 
 .upload-form {
-  background: white;
+  background: var(--bg-card);
   border-radius: 20px;
   padding: 40px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
 }
@@ -108,7 +108,7 @@
   gap: 10px;
   font-size: 18px;
   font-weight: 700;
-  color: #2d3748;
+  color: var(--text-primary);
   margin-bottom: 12px;
 }
 
@@ -122,18 +122,18 @@
 }
 
 .file-drop-zone {
-  border: 3px dashed #cbd5e0;
+  border: 3px dashed var(--border-color);
   border-radius: 12px;
   padding: 60px 20px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s;
-  background: #f7fafc;
+  background: var(--bg-card-hover);
 }
 
 .file-drop-zone:hover {
   border-color: #667eea;
-  background: #edf2f7;
+  background: var(--bg-card-alt);
   transform: translateY(-2px);
 }
 
@@ -163,13 +163,13 @@
 .drop-zone-text {
   font-size: 18px;
   font-weight: 600;
-  color: #2d3748;
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
 
 .drop-zone-hint {
   font-size: 14px;
-  color: #718096;
+  color: var(--text-muted);
 }
 
 /* Files Preview */
@@ -180,7 +180,7 @@
 .preview-title {
   font-size: 16px;
   font-weight: 700;
-  color: #2d3748;
+  color: var(--text-primary);
   margin-bottom: 16px;
 }
 
@@ -195,15 +195,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px;
-  background: #f7fafc;
+  background: var(--bg-card-hover);
   border-radius: 12px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--border-color);
   transition: all 0.2s;
 }
 
 .file-item:hover {
-  background: #edf2f7;
-  border-color: #cbd5e0;
+  background: var(--bg-card-alt);
+  border-color: #667eea;
 }
 
 .file-info {
@@ -243,13 +243,13 @@
 .file-name {
   font-size: 16px;
   font-weight: 600;
-  color: #2d3748;
+  color: var(--text-primary);
   word-break: break-word;
 }
 
 .file-size {
   font-size: 14px;
-  color: #718096;
+  color: var(--text-muted);
 }
 
 .file-type-badge {
@@ -295,11 +295,13 @@
 .form-input {
   width: 100%;
   padding: 14px 16px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 16px;
   transition: border-color 0.2s;
   font-family: inherit;
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
 }
 
 .form-input:focus {
@@ -308,13 +310,13 @@
 }
 
 .form-input:disabled {
-  background-color: #f7fafc;
+  background-color: var(--bg-card-alt);
   cursor: not-allowed;
 }
 
 .input-hint {
   font-size: 14px;
-  color: #718096;
+  color: var(--text-muted);
   margin-top: 8px;
 }
 
@@ -341,8 +343,8 @@
 .num-btn {
   width: 44px;
   height: 44px;
-  border: 2px solid #e2e8f0;
-  background: white;
+  border: 2px solid var(--border-color);
+  background: var(--bg-card);
   border-radius: 8px;
   font-size: 24px;
   font-weight: 700;

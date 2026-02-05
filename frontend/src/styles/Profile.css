@@ -1,6 +1,6 @@
 .profile-wrapper {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: var(--bg-page-gradient);
   position: relative;
   overflow: hidden;
 }
@@ -87,10 +87,10 @@
 
 /* Profile Card */
 .profile-card {
-  background: white;
+  background: var(--bg-card);
   border-radius: 20px;
   padding: 40px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
 }
@@ -111,7 +111,7 @@
   gap: 30px;
   margin-bottom: 30px;
   padding-bottom: 30px;
-  border-bottom: 2px solid #f7fafc;
+  border-bottom: 2px solid var(--border-color);
 }
 
 .avatar-container {
@@ -214,7 +214,7 @@
 .detail-label {
   font-size: 14px;
   font-weight: 600;
-  color: #718096;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -222,7 +222,7 @@
 .detail-value {
   font-size: 16px;
   font-weight: 600;
-  color: #2d3748;
+  color: var(--text-primary);
 }
 
 /* Profile Edit Form */
@@ -238,7 +238,7 @@
   display: block;
   font-size: 14px;
   font-weight: 600;
-  color: #2d3748;
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
 
@@ -295,9 +295,9 @@
 }
 
 .btn-password {
-  background: white;
-  color: #667eea;
-  border: 2px solid #667eea;
+  background: var(--bg-card);
+  color: var(--link-color);
+  border: 2px solid var(--link-color);
 }
 
 .btn-password:hover {
@@ -321,12 +321,12 @@
 }
 
 .btn-cancel {
-  background: #e2e8f0;
-  color: #4a5568;
+  background: var(--bg-card-alt);
+  color: var(--text-secondary);
 }
 
 .btn-cancel:hover:not(:disabled) {
-  background: #cbd5e0;
+  background: var(--bg-card-hover);
 }
 
 .profile-actions {
@@ -343,15 +343,16 @@
 .stats-card,
 .password-card,
 .settings-card {
-  background: white;
+  background: var(--bg-card);
   border-radius: 20px;
   padding: 32px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
 }
 
 .stats-card::before,
+.history-card::before,
 .password-card::before,
 .settings-card::before {
   content: '';
@@ -366,7 +367,7 @@
 .card-title {
   font-size: 24px;
   font-weight: 700;
-  color: #2d3748;
+  color: var(--text-primary);
   margin-bottom: 24px;
   display: flex;
   align-items: center;
@@ -388,16 +389,16 @@
   align-items: center;
   gap: 16px;
   padding: 20px;
-  background: #f7fafc;
+  background: var(--bg-card-hover);
   border-radius: 12px;
   transition: all 0.2s;
   border-left: 4px solid var(--stat-color);
 }
 
 .stat-item:hover {
-  background: #edf2f7;
+  background: var(--bg-card-alt);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
 }
 
 .stat-icon-wrapper {
@@ -422,16 +423,121 @@
 .stat-value {
   font-size: 24px;
   font-weight: 700;
-  color: #2d3748;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
 .stat-label {
   font-size: 12px;
-  color: #718096;
+  color: var(--text-muted);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.stats-loading,
+.history-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  color: #718096;
+}
+
+.stats-error,
+.history-error {
+  padding: 20px;
+  color: #e53e3e;
+  background: #fff5f5;
+  border-radius: 12px;
+}
+
+/* Quiz History */
+.history-card {
+  background: var(--bg-card);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.history-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #48bb78 50%, #ed8936 100%);
+}
+
+.history-empty {
+  padding: 24px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.history-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  background: var(--bg-card-hover);
+  border-radius: 12px;
+  border-left: 4px solid var(--link-color);
+}
+
+.history-item:hover {
+  background: var(--bg-card-alt);
+}
+
+.history-item-main {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.history-title {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.history-score {
+  font-weight: 700;
+  color: var(--link-color);
+}
+
+.history-item-meta {
+  width: 100%;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.history-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--link-color);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.history-link:hover {
+  text-decoration: underline;
 }
 
 /* Password Form */
@@ -451,13 +557,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background: #f7fafc;
+  background: var(--bg-card-hover);
   border-radius: 12px;
   transition: background 0.2s;
 }
 
 .setting-item:hover {
-  background: #edf2f7;
+  background: var(--bg-card-alt);
 }
 
 .setting-info {
@@ -554,6 +660,7 @@
 
   .profile-card,
   .stats-card,
+  .history-card,
   .password-card,
   .settings-card {
     padding: 24px;
