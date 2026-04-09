@@ -86,8 +86,8 @@ const Upload = () => {
     if (!isNaN(value)) {
       if (value < 5) {
         setNumQuestions(5);
-      } else if (value > 500) {
-        setNumQuestions(500);
+      } else if (value > 30) {
+        setNumQuestions(30);
       } else {
         setNumQuestions(value);
       }
@@ -114,8 +114,8 @@ const Upload = () => {
       return;
     }
 
-    if (numQuestions < 5 || numQuestions > 500) {
-      setError('Number of questions must be between 5 and 500');
+    if (numQuestions < 5 || numQuestions > 30) {
+      setError('Number of questions must be between 5 and 30');
       setLoading(false);
       return;
     }
@@ -290,7 +290,7 @@ const Upload = () => {
                 value={numQuestions}
                 onChange={handleNumQuestionsChange}
                 min="5"
-                max="500"
+                max="30"
                 className="form-input num-questions-input"
                 disabled={loading}
                 required
@@ -306,15 +306,15 @@ const Upload = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setNumQuestions(prev => Math.min(500, prev + 1))}
+                  onClick={() => setNumQuestions(prev => Math.min(30, prev + 1))}
                   className="num-btn"
-                  disabled={loading || numQuestions >= 500}
+                  disabled={loading || numQuestions >= 30}
                 >
                   +
                 </button>
               </div>
             </div>
-            <p className="input-hint">Select between 5 and 50 questions per quiz</p>
+            <p className="input-hint">Select between 5 and 30 questions per quiz</p>
           </div>
 
           {/* Generate Button */}

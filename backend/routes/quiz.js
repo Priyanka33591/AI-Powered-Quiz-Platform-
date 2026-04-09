@@ -73,8 +73,8 @@ router.post('/upload', authenticateToken, upload.array('files', 10), async (req,
     }
 
     const numQuestionsInt = parseInt(numQuestions);
-    if (isNaN(numQuestionsInt) || numQuestionsInt <= 0 || numQuestionsInt < 5 || numQuestionsInt > 500) {
-      return res.status(400).json({ error: 'Invalid number of questions. Must be between 5 and 500' });
+    if (isNaN(numQuestionsInt) || numQuestionsInt <= 0 || numQuestionsInt < 5 || numQuestionsInt > 30) {
+      return res.status(400).json({ error: 'Invalid number of questions. Must be between 5 and 30' });
     }
 
     // Extract text from files

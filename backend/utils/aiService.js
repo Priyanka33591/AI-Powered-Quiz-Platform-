@@ -43,7 +43,7 @@ ${text}
           "X-Title": "Quiz App"
         },
         body: JSON.stringify({
-          "model": "openai/gpt-5.2", 
+          model: "openai/gpt-3.5-turbo", 
           messages: [
             {
               role: "user",
